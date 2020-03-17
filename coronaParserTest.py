@@ -1,18 +1,25 @@
-import requests
+import urllib.request
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
-res = requests.get('http://ncov.mohw.go.kr/')
-soup = BeautifulSoup(res.content, 'html.parser')
+url = 'http://ncov.mohw.go.kr/'
+soup = BeautifulSoup(urllib.request.urlopen(url).read().decode('utf-8'), "html.parser")
 data1 = soup.find('ul', {'class': 'liveNum'})
-data2 = data1.find_all('li')
-
+data1 = data1.find_all('li')
 
 # data1 = soup.select('ul.liveNum')
 # data1[0].select('strong.tit')
 # print(data1[0].select('strong.tit'))
 # data2 = data1.find_all('strong', 'tit')
-print(data2)
+print(data1)
+
+# 대분류 환자현황
+for item in data1:
+
+    #중분류 [0]확진환자, [1]완치, [2]치료중, [3]사망
+    print(item.find('strong', 'tit').get_text())
+    print(item.find('span', 'num').get_text())
+    print(item.find('span', 'before').get_text())
 
 # for item in data1:
 #     print(item.get_text().replace('\n','').replace(' ', ''))
