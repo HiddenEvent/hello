@@ -1,3 +1,4 @@
+import json
 import urllib.request
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
@@ -13,13 +14,28 @@ data1 = data1.find_all('li')
 # data2 = data1.find_all('strong', 'tit')
 print(data1)
 
+patientInfo_list = []
+completeCureInfo_list = []
+cureInfo_list = []
+DeathInfo_list = []
+
+#def addCoronaList(item) :
+
+
+
 # 대분류 환자현황
 for item in data1:
+    # 중분류 [0]확진환자, [1]완치, [2]치료중, [3]사망
+    if item == data1[0]:
+        print(item.find('strong', 'tit').get_text())
+        print(item.find('span', 'num').get_text())
+        print(item.find('span', 'before').get_text())
+        patientInfo_list.append(item.find('strong', 'tit').get_text())
+        patientInfo_list.append(item.find('strong', 'tit').get_text())
+        patientInfo_list.append(item.find('strong', 'tit').get_text())
 
-    #중분류 [0]확진환자, [1]완치, [2]치료중, [3]사망
-    print(item.find('strong', 'tit').get_text())
-    print(item.find('span', 'num').get_text())
-    print(item.find('span', 'before').get_text())
+print(patientInfo_list)
+
 
 # for item in data1:
 #     print(item.get_text().replace('\n','').replace(' ', ''))
