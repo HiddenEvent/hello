@@ -12,30 +12,31 @@ data1 = data1.find_all('li')
 # data1[0].select('strong.tit')
 # print(data1[0].select('strong.tit'))
 # data2 = data1.find_all('strong', 'tit')
-print(data1)
 
-patientInfo_list = []
-completeCureInfo_list = []
-cureInfo_list = []
-DeathInfo_list = []
+list = []
 
-#def addCoronaList(item) :
-
+# def addCoronaList(item) :
+midleRoot = {}
 
 
 # 대분류 환자현황
 for item in data1:
     # 중분류 [0]확진환자, [1]완치, [2]치료중, [3]사망
-    if item == data1[0]:
-        print(item.find('strong', 'tit').get_text())
-        print(item.find('span', 'num').get_text())
-        print(item.find('span', 'before').get_text())
-        patientInfo_list.append(item.find('strong', 'tit').get_text())
-        patientInfo_list.append(item.find('strong', 'tit').get_text())
-        patientInfo_list.append(item.find('strong', 'tit').get_text())
+    patientInfo_dic = {}
+    title = item.find('strong', 'tit').get_text()
+    totNum = item.find('span', 'num').get_text()
+    beforeNum = item.find('span', 'before').get_text()
+    patientInfo_dic["title"] = title
+    patientInfo_dic["tot_num"] = totNum
+    patientInfo_dic["before_num"] = beforeNum
+    list.append(patientInfo_dic)
 
-print(patientInfo_list)
+midleRoot["patient_status"] = list
 
+# Print JSON
+print(json.dumps(midleRoot, ensure_ascii=False, indent="\t"))
+
+# print(midleRoot)
 
 # for item in data1:
 #     print(item.get_text().replace('\n','').replace(' ', ''))
